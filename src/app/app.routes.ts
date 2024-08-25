@@ -6,12 +6,21 @@ import { RegistrationComponent } from './registration/registration.component';
 import { CardComponent } from './card/card.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { NotfondcomponentComponent } from './notfondcomponent/notfondcomponent.component';
+import { IndexPageComponent } from './index-page/index-page.component';
 
 export const routes: Routes = [
     {
-        path: '',
-        component: MainPageComponent
+        path:'',
+        component: IndexPageComponent
+
+
     },
+    {
+        path: 'products',
+        component: MainPageComponent
+    }
+    
+    ,
     {
         path: 'login',
         component: LoginComponent
