@@ -1,23 +1,41 @@
+import { HttpClient } from '@angular/common/http';
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
-import { Component } from '@angular/core';
-import jasondata from './data/products.json';
-import { CartService } from '../services/cart.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CartService } from '../services/cart.service';
 import { Product } from './product.model';
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [NgClass, NgFor, NgIf, NgStyle],
+  imports:[NgClass, NgFor, NgIf, NgStyle],
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.css'],
 })
-export class MainPageComponent {
-  products: Product[] = jasondata as unknown as Product[];
+export class MainPageComponent implements OnInit {
+  products: Product[] = [];
 
-  constructor(private router: Router, private cartService: CartService) {}
+  constructor(private http: HttpClient, private router: Router, private cartService: CartService) {}
 
-  handleData(id: number) {
+  ngOnInit(): void {
+    this.fetchProducts();
+  }
+
+  fetchProducts(): void {
+    this.http.get<Product[]>('https://auto-gear.vercel.app/spare-parts')
+      .subscribe({
+        next: (data) => {
+          this.products = data;
+          console.log('Fetched products:', this.products); 
+        },
+        error: (err) => {
+          console.error('Error fetching products', err);
+          console.log('Failed to fetch products'); 
+        }
+      });
+  }
+
+  handleData(id: string): void {
     this.router.navigate(['/product-details', id]);
   }
 
@@ -28,4 +46,5 @@ export class MainPageComponent {
   addToCart(product: Product): void {
     this.cartService.addToCart({ ...product, quantity: 1 });
   }
+  
 }

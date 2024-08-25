@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
-import jasondata from './data/products.json';
+import { Component, Input, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { DiscountPricePipe } from "../discount-price.pipe";
 import { CartService } from '../services/cart.service';
-import { Product } from '../main-page/product.model'; // Ensure correct import path
+import { Product } from '../main-page/product.model';
 
 @Component({
   selector: 'app-product-details',
@@ -12,21 +12,30 @@ import { Product } from '../main-page/product.model'; // Ensure correct import p
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css']
 })
-export class ProductDetailsComponent {
-  products: Product[] = jasondata as unknown as Product[];
+export class ProductDetailsComponent implements OnInit {
+  @Input() id: string = ''; // Define as string for consistency
+  product: Product | undefined;
   selectedImage: string | undefined;
 
-  @Input() id: any = '';
-  product: Product | undefined;
+  constructor(private http: HttpClient, private cartService: CartService) {}
 
-  constructor(private cartService: CartService) {}
-
-  ngOnInit() {
-    this.product = this.products.find((pro) => pro.id === +this.id);
-    console.log(this.product);
+  ngOnInit(): void {
+    this.fetchProductDetails();
   }
 
-  selectImage(img: string) {
+  fetchProductDetails(): void {
+    // Fetch product details from the API based on the provided id
+    this.http.get<Product>(`https://auto-gear.vercel.app/spare-parts/${this.id}`)
+      .subscribe({
+        next: (data) => {
+          this.product = data;
+          console.log('Fetched product:', this.product);
+        },
+        error: (err) => console.error('Error fetching product details', err)
+      });
+  }
+
+  selectImage(img: string): void {
     this.selectedImage = img;
   }
 
