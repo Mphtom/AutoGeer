@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { DiscountPricePipe } from "../discount-price.pipe";
 import { CartService } from '../services/cart.service';
-import { Product } from '../main-page/product.model';
+import { Product } from '../main-page/product.model'; 
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product-details',
@@ -13,31 +14,40 @@ import { Product } from '../main-page/product.model';
   styleUrls: ['./product-details.component.css']
 })
 export class ProductDetailsComponent implements OnInit {
-  @Input() id: string = ''; // Define as string for consistency
+  products: Product[] = [];
   product: Product | undefined;
-  selectedImage: string | undefined;
 
-  constructor(private http: HttpClient, private cartService: CartService) {}
+  constructor(
+    private http: HttpClient, 
+    private cartService: CartService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.fetchProductDetails();
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.fetchProductDetails(id);
+    }
   }
 
-  fetchProductDetails(): void {
-    // Fetch product details from the API based on the provided id
-    this.http.get<Product>(`https://auto-gear.vercel.app/spare-parts/${this.id}`)
+  fetchProductDetails(id: string): void {
+    this.http.get<Product[]>(`https://auto-gear.vercel.app/spare-parts`)
       .subscribe({
         next: (data) => {
-          this.product = data;
-          console.log('Fetched product:', this.product);
+          this.products = data;
+          this.product = this.products.find((pro) => pro._id === id);
+          if (!this.product) {
+            console.error('Product not found');
+          } else {
+            console.log('Fetched product:', this.product);
+          }
         },
-        error: (err) => console.error('Error fetching product details', err)
+        error: (err) => {
+          console.error('Error fetching products', err);
+        }
       });
   }
 
-  selectImage(img: string): void {
-    this.selectedImage = img;
-  }
 
   addToCart(): void {
     if (this.product) {

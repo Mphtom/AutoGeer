@@ -14,6 +14,13 @@ import { Product } from './product.model';
 })
 export class MainPageComponent implements OnInit {
   products: Product[] = [];
+  filteredProducts: Product[] = [];
+  categories: { title: string, image: string }[] = [
+    { title: 'oil filters', image: 'https://cdn.iconscout.com/icon/premium/png-512-thumb/oil-filter-3402967-2836815.png?f=webp&w=256' },
+    { title: 'car battries', image: 'https://cdn-icons-png.flaticon.com/128/2087/2087628.png' },
+    { title: 'Wiper Blades', image: 'https://cdn-icons-png.flaticon.com/128/3374/3374671.png' },
+    { title: 'Spark Plugs', image: 'https://cdn-icons-png.flaticon.com/128/10690/10690314.png' }
+  ];
 
   constructor(private http: HttpClient, private router: Router, private cartService: CartService) {}
 
@@ -26,6 +33,7 @@ export class MainPageComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.products = data;
+          this.filteredProducts = this.products;
           console.log('Fetched products:', this.products); 
         },
         error: (err) => {
@@ -46,5 +54,12 @@ export class MainPageComponent implements OnInit {
   addToCart(product: Product): void {
     this.cartService.addToCart({ ...product, quantity: 1 });
   }
-  
+
+  onCategoryChange(category: string): void {
+    if (category === 'All') {
+      this.filteredProducts = this.products;
+    } else {
+      this.filteredProducts = this.products.filter(product => product.category ==category);
+    }
+  }
 }

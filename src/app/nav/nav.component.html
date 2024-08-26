@@ -22,14 +22,14 @@
           <i class="fa-solid fa-lock"></i> Login
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link position-relative " routerLink="/card" routerLinkActive="active"
+      <li class="nav-item position-relative">
+        <a class="nav-link  " routerLink="/card" routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }">
-          <i class="fa-solid fa-cart-shopping"></i> <span class="position-absolute top-0 start-50 ">0</span>
+          <i class="fa-solid fa-cart-shopping z-1"></i> <span class="numberOfItems" [ngClass]="{'light': totalItems> 0, 'red': totalItems <= 0}" >{{totalItems}}</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link position-relative " routerLink="/card" routerLinkActive="active"
+        <a class="nav-link position-relative " routerLink="/Admin" routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }">
           <i class="fa-solid fa-lock mx-1"></i> <span >Admin</span>
         </a>

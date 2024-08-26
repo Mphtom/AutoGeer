@@ -1,9 +1,9 @@
-<div class="container my-5" *ngIf="product; else notFound">
+<div class="container my-4" *ngIf="product; else notFound">
   <div class="row">
     <div class="col-md-6">
       <!-- Main Product Image -->
-      <div class="main-image mb-3">
-        <img [src]="product.image" class="img-fluid rounded" [alt]="product.title">
+      <div class="main-image mb-3 me-5">
+        <img [src]="product.image" class="img-fluid rounded w-100 " [alt]="product.title">
       </div>
     </div>
     <div class="col-md-6">
@@ -18,10 +18,11 @@
       <ul class="list-group">
         <li class="list-group-item"><strong>Manufacturer:</strong> {{ product.manufacturer }}</li>
         <li class="list-group-item"><strong>SKU:</strong> {{ product._id }}</li>
-        <li>
-        <span [ngClass]="{'text-success': product.quantity > 0, 'text-danger': product.quantity <= 0}">
-          {{ product.quantity > 0 ? 'In Stock' : 'Out of Stock' }}
-        </span>
+        <li class="list-group-item">
+          <strong>avalbilty :</strong> <span
+            [ngClass]="{'text-success': product.quantity > 0, 'text-danger': product.quantity <= 0}">
+            {{ product.quantity > 0 ? 'In Stock' : 'Out of Stock' }}
+          </span>
         </li>
         <li class="list-group-item"><strong>Manufacture Country:</strong> {{ product.manufactureCountry }}</li>
         <li class="list-group-item"><strong>Vehicle Type:</strong> {{ product.vehicleType }}</li>
