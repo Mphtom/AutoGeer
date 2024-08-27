@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CartService } from '../services/cart.service';
+import { AuthService } from '../services/auth.service';
 import { Product } from '../main-page/product.model';
 
 @Component({
@@ -9,17 +11,26 @@ import { Product } from '../main-page/product.model';
   standalone: true,
   imports: [NgFor, NgIf, FormsModule],
   templateUrl: './card.component.html',
-  styleUrls: ['./card.component.css'] 
+  styleUrls: ['./card.component.css']
 })
-export class CardComponent {
+export class CardComponent implements OnInit {
   cartItems: Product[] = [];
   totalItems = 0;
   totalPrice = 0;
 
-  constructor(private cartService: CartService) { }
+  constructor(
+    private cartService: CartService,
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    this.getCartItems();
+    if (!this.authService.isLoggedIn()) {
+      this.authService.setRedirectUrl('/cart'); 
+      this.router.navigate(['/login']);
+    } else {
+      this.getCartItems();
+    }
   }
 
   getCartItems(): void {
@@ -43,6 +54,11 @@ export class CardComponent {
   }
 
   checkout(): void {
-    console.log('buy now..........');
+    if (this.authService.isLoggedIn()) {
+      console.log('Proceeding to checkout...');
+    } else {
+      console.log('User not logged in. Redirecting to login page...');
+      this.router.navigate(['/login']);
+    }
   }
 }
