@@ -1,26 +1,39 @@
-<div class="relative position-relative d-flex">
-  <aside class="filter-container">
-    <div class="filter">
-      <h2 class="h4 font-weight-bold mb-4">Filter</h2>
-      <ul class="list-group">
-        <li class="list-group-item border-0 p-0 my-2" *ngFor="let category of categories">
-          <button class="btn text-start w-100 py-2 px-3 text-dark" (click)="onCategoryChange(category.title)">
-            {{ category.title }}
-          </button>
-        </li>
-        <li class="list-group-item border-0 p-0">
-          <button class="btn btn-link text-start w-100 py-2 px-3 text-dark" (click)="onCategoryChange('All')">
-            All
-          </button>
-        </li>
-      </ul>
-    </div>
-  </aside>
+<div class="container my-5">
+  <h2 class="text-center mb-4 font-weight-light border rounded shadow p-3 bg-light w-50 opacity-75">
+    Products In {{ category }}</h2>
+
+  <div class="filters mb-4">
+    <form (ngSubmit)="applyFilters()">
+      <div class="row">
+        <div class="col-md-4">
+          <label for="countryFilter" class="form-label">Country</label>
+          <select id="countryFilter" class="form-select" [(ngModel)]="selectedCountry" name="country">
+            <option value="">All Countries</option>
+            <option *ngFor="let country of uniqueCountries" [value]="country">{{ country }}</option>
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label for="priceFilter" class="form-label">Price</label>
+          <select id="priceFilter" class="form-select" [(ngModel)]="selectedPriceRange" name="price">
+            <option value="">All Prices</option>
+            <option value="0-200">$0 - $200</option>
+            <option value="201-500">$200 - $500</option>
+            <option value="500+">$500+</option>
+          </select>
+        </div>
+
+        <div class="col-md-4 d-flex align-items-end">
+          <button type="submit" class="btn btn-primary">Apply Filters</button>
+        </div>
+      </div>
+    </form>
+  </div>
 
   <main class="container content d-flex justify-content-center mb-5">
     <div class="row mt-5">
-      <div class="col-sm-4 mb-4" *ngFor="let product of filteredProducts">
-        <div class="card">
+      <div class="col-sm-4" *ngFor="let product of filteredProducts">
+        <div class="card p-2">
           <div class="head d-flex justify-content-between">
             <small class="star text-light p-1 rounded-1"
               [ngClass]="{'bg-success': product.quantity > 0, 'bg-danger': product.quantity <= 0}">
