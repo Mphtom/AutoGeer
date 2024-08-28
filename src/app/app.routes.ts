@@ -7,7 +7,7 @@ import { CardComponent } from './card/card.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { NotfondcomponentComponent } from './notfondcomponent/notfondcomponent.component';
 import { IndexPageComponent } from './index-page/index-page.component';
-
+import { ProductsCategoryComponent } from './products-category/products-category.component';
 export const routes: Routes = [
     {
         path:'',
@@ -36,6 +36,10 @@ export const routes: Routes = [
     {
         path: 'product-details/:id',
         component: ProductDetailsComponent
+    },
+    {
+        path: 'category-products/:category',
+        component: ProductsCategoryComponent
     },
     {
         path:'**',

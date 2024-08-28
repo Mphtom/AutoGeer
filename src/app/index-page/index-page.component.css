@@ -1,5 +1,5 @@
 .card {
-  cursor:pointer;
+  cursor: pointer;
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
@@ -13,13 +13,14 @@
 
 .card-img-top {
   width: 80%;
-  margin:0 auto;
+  margin: 0 auto;
   height: auto;
   object-fit: cover;
 }
 
 .card-body {
   padding: 1.5rem; 
+}
 
 .card-title {
   font-size: 1.25rem;
