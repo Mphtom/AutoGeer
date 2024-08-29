@@ -53,31 +53,29 @@ export class ProductsCategoryComponent implements OnInit {
   }
 
   applyFilters(): void {
-    let filtered = this.products;
-  
+    let filtered = this.products.filter(product => product.category === this.category); 
+
     if (this.selectedCountry) {
       filtered = filtered.filter(product => product.manufactureCountry === this.selectedCountry);
     }
-  
+
     if (this.selectedPriceRange) {
       if (this.selectedPriceRange === '0-200') {
-        filtered = filtered.filter(product => product.price >= 0 && product.price <= 200);
+        filtered = filtered.filter(product => product.price >= 0 && product.price < 200);
       } else if (this.selectedPriceRange === '200-500') {
-        filtered = filtered.filter(product => product.price > 200 && product.price <= 500);
+        filtered = filtered.filter(product => product.price >= 200 && product.price < 500);
       } else if (this.selectedPriceRange === '500+') {
-        filtered = filtered.filter(product => product.price > 500);
+        filtered = filtered.filter(product => product.price >= 500);
       }
     }
-  
+
     this.filteredProducts = filtered;
   }
-  
 
   addToCart(product: Product): void {
     const productWithQuantity = { ...product, quantity: 1 }; 
     this.cartService.addToCart(productWithQuantity);
   }
-  
 
   handleData(id: string): void {
     this.router.navigate(['/product-details', id]);
