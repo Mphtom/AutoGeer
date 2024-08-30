@@ -20,6 +20,10 @@ export class AuthService {
     this.token = token;
     localStorage.setItem('token', token);
   }
+  checkout(bool:string){
+    localStorage.setItem('ischeckout',bool);
+
+  }
 
   getToken(): string | null {
     return this.token;
