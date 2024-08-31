@@ -1,7 +1,7 @@
 <div class="container-fluid my-5 px-4 py-5">
   <div class="row justify-content-center">
     <div *ngFor="let category of categories" class="col-md-3 mb-4">
-      <div class="card text-center" (click)="onCategoryClick(category.title)">
+      <div class="card text-center">
         <img [src]="category.image" class="card-img-top" alt="{{ category.title }}">
         <div class="card-body">
           <h5 class="card-title">{{ category.title }}</h5>

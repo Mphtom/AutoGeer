@@ -4,6 +4,9 @@ import { NavComponent } from "./nav/nav.component";
 import { FooterComponent } from "./footer/footer.component";
 import { LoginComponent } from "./login/login.component";
 import { RegistrationComponent } from "./registration/registration.component";
+import { AuthGuard } from '../../auth.guard';
+
+
 
 @Component({
   selector: 'app-root',
