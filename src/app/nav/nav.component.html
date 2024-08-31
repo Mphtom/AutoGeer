@@ -1,42 +1,48 @@
-<div class="navbar navbar-expand navbar-dark  bg-dark p-2 ">
-  <nav class="container d-flex justify-content-between  ">
+<div class=" navbar navbar-expand-lg navbar-dark bg-dark  px-2 position-sticky">
+  <nav
+    class=" container d-flex justify-content-between ">
     <a class="navbar-brand mx-2" href="">
       <i class="fa-solid fa-house me-3 h4"></i>
       <span class="h5">Auto GEAR</span>
     </a>
-    <a class="nav-link text-bg-light rounded-2 px-2 py-1 d-flex align-content-center justify-content-center"
-      routerLink="/products" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-      <i class="fa-brands fa-product-hunt h3"></i> <span class="h5">Products</span>
-    </a>
+    <a class="nav-link text-bg-light rounded-2 px-2 py-1 d-flex align-content-center justify-content-center " routerLink="/products" routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }">
+    <i class="fa-brands fa-product-hunt h3"></i> <span class="h5">roducts</span>
+  </a>
 
     <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/registration" routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">
+          <i class="fa-solid fa-user-plus"></i> Register
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true } ">
+          <i class="fa-solid fa-lock"></i> Login
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/admin-login" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true } ">
+          <i class="fa-solid fa-lock"></i> Login Admin
+        </a>
+      </li>
+
+
       <li class="nav-item position-relative">
-        <a class="nav-link" routerLink="/cart" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-          <i class="fa-solid fa-cart-shopping z-1"></i> 
-          <span class="numberOfItems" [ngClass]="{'light': totalItems > 0, 'red': totalItems <= 0}">{{totalItems}}</span>
+        <a class="nav-link  " routerLink="/card" routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">
+          <i class="fa-solid fa-cart-shopping z-1"></i> <span class="numberOfItems" [ngClass]="{'light': totalItems> 0, 'red': totalItems <= 0}" >{{totalItems}}</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link position-relative" routerLink="/Admin" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-          <i class="fa-solid fa-lock mx-1"></i> <span>Admin</span>
+        <a class="nav-link position-relative " routerLink="/admin" routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">
+          <i class="fa-solid fa-lock mx-1"></i> <span >Admin</span>
         </a>
       </li>
-
-      <ng-container *ngIf="!login; else loggedInTemplate">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-            <i class="fa-solid fa-lock"></i> Login
-          </a>
-        </li>
-      </ng-container>
-      <ng-template #loggedInTemplate>
-        <li class="nav-item  ms-2 d-flex">
-          <span class="navbar-text me-2">Welcome, {{ userName }}</span>
-          <a class="nav-link" routerLink="/"  (click)="logOut()" >
-             Log out
-          </a>
-        </li>
-      </ng-template>
     </ul>
   </nav>
 </div>
