@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { Product } from '../main-page/product.model'; 
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
+  private apiUrl = 'https://auto-gear.vercel.app/spare-parts'; // URL الخاص بـ API
   private cartItems: Product[] = [];
   private totalItemsSubject = new BehaviorSubject<number>(0);
 
   totalItems$ = this.totalItemsSubject.asObservable();
+
+  constructor(private http: HttpClient) {}
 
   getCartItems(): Product[] {
     return this.cartItems;
@@ -31,6 +36,10 @@ export class CartService {
   removeFromCart(item: Product): void {
     this.cartItems = this.cartItems.filter(cartItem => cartItem._id !== item._id);
     this.updateTotalItems();
+  }
+
+  deleteProduct(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
   private updateTotalItems(): void {

@@ -1,4 +1,6 @@
+/* Custom Styles */
 .text-success {
+<<<<<<< HEAD
   color: rgb(82, 255, 82);
 }
 
@@ -76,8 +78,13 @@ i {
   .col-sm-4 {
     flex: 0 0 100%;
     max-width: 100%;
+=======
+    color: rgb(82, 255, 82);
+>>>>>>> 3ffbc7ac9856f6e107377b441fabb15686c27ea0
   }
+  
   .card {
+<<<<<<< HEAD
     margin: 10px 0;
   }
   .card-img-top {
@@ -92,10 +99,22 @@ i {
   }
   .card {
     margin: 20px;
+=======
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden; /* Ensure no overflow outside the card */
+>>>>>>> 3ffbc7ac9856f6e107377b441fabb15686c27ea0
   }
+  
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  }
+  
   .card-img-top {
+    object-fit: cover; 
     height: 220px;
   }
+<<<<<<< HEAD
 }
 
 .pagination {
@@ -138,3 +157,75 @@ i {
 .position-absolute .fa-heart.text-danger {
   color: red; 
 }
+=======
+  
+ 
+  
+  .price {
+    padding-top: 0;
+    margin-top: 0;
+    font-size: 20px;
+    font-weight: 800;
+  }
+  
+  .head {
+    margin: 0;
+    padding: 0;
+  }
+  
+  i {
+    font-size: 10px;
+  }
+  
+  .filter-container {
+    position: sticky; 
+    top: 0; 
+    height: 100vh;
+    overflow-y: auto; 
+    background-color: #f8f9fa; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000; 
+  }
+  
+  .filter h2 {
+    padding: 1rem;
+    background-color: #e9ecef; 
+    margin-bottom: 0;
+  }
+  
+  .filter .list-group-item {
+    border: none; 
+  }
+  
+  .filter .btn-link {
+    color: #0000; 
+    font-weight: 400; 
+  }
+  
+  .filter .list-group-item:hover {
+    background-color:  rgba(0, 0, 0, 0.1); 
+    color: white; 
+    
+  }
+  
+  @media (max-width: 768px) {
+    .col-sm-4 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  
+    .card {
+      margin: 10px 0;
+    }
+  
+    .card-img-top {
+      height: 150px;
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .card {
+      margin: 20px;
+    }
+  }
+>>>>>>> 3ffbc7ac9856f6e107377b441fabb15686c27ea0
