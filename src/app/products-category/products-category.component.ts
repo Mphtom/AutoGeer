@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CartService } from '../services/cart.service';
+import { FavoritesService } from '../services/favorites.service';
 import { Product } from '../main-page/product.model'; 
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; 
 
 @Component({
   selector: 'app-products-category',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './products-category.component.html',
-  styleUrls: ['./products-category.component.css']
+  styleUrls: ['./products-category.component.css'],
 })
 export class ProductsCategoryComponent implements OnInit {
   category: string = '';
@@ -25,7 +26,8 @@ export class ProductsCategoryComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient,
-    private cartService: CartService
+    private cartService: CartService,
+    private favoritesService: FavoritesService
   ) {}
 
   ngOnInit(): void {
@@ -36,7 +38,7 @@ export class ProductsCategoryComponent implements OnInit {
   }
 
   fetchProducts(): void {
-    this.http.get<Product[]>('https://auto-gear.vercel.app/spare-parts').subscribe({
+    this.http.get<Product[]>('https://auto-gear.vercel.app/spare-parts/all').subscribe({
       next: (data) => {
         this.products = data;
         this.uniqueCountries = [...new Set(data.map(product => product.manufactureCountry))];
@@ -53,7 +55,7 @@ export class ProductsCategoryComponent implements OnInit {
   }
 
   applyFilters(): void {
-    let filtered = this.products.filter(product => product.category === this.category); 
+    let filtered = this.products.filter(product => product.category === this.category);
 
     if (this.selectedCountry) {
       filtered = filtered.filter(product => product.manufactureCountry === this.selectedCountry);
@@ -73,11 +75,28 @@ export class ProductsCategoryComponent implements OnInit {
   }
 
   addToCart(product: Product): void {
-    const productWithQuantity = { ...product, quantity: 1 }; 
+    const productWithQuantity = { ...product, quantity: 1 };
     this.cartService.addToCart(productWithQuantity);
   }
 
   handleData(id: string): void {
     this.router.navigate(['/product-details', id]);
+  }
+
+  toggleFavorite(product: Product): void {
+    if (product._id) {
+      if (this.favoritesService.isFavorite(product._id)) {
+        this.favoritesService.removeFavorite(product._id);
+        console.log('Removed from favorites:', product._id);
+      } else {
+        this.favoritesService.addFavorite(product._id);
+        console.log('Added to favorites:', product._id);
+      }
+    }
+  }
+
+  isFavorite(product: Product): boolean {
+    const favorites = this.favoritesService.getFavorites();
+    return favorites.includes(product._id);
   }
 }

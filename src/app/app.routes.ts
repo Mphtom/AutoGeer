@@ -8,9 +8,10 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { NotfondcomponentComponent } from './notfondcomponent/notfondcomponent.component';
 import { IndexPageComponent } from './index-page/index-page.component';
 import { ProductsCategoryComponent } from './products-category/products-category.component';
+import { FavoritesComponent } from './favorites/favorites.component';
 export const routes: Routes = [
     {
-        path:'',
+        path: '',
         component: IndexPageComponent
 
 
@@ -19,7 +20,7 @@ export const routes: Routes = [
         path: 'products',
         component: MainPageComponent
     }
-    
+
     ,
     {
         path: 'login',
@@ -40,14 +41,20 @@ export const routes: Routes = [
 
 
 
-    
+
     {
         path: 'category-products/:category',
         component: ProductsCategoryComponent
     },
+
     {
-        path:'**',
-        component :NotfondcomponentComponent
+        path: 'favorites',
+        component: FavoritesComponent
+    },
+
+    {
+        path: '**',
+        component: NotfondcomponentComponent
     }
 
 

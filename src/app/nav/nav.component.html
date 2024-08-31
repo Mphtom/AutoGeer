@@ -16,6 +16,13 @@
           <span class="numberOfItems" [ngClass]="{'light': totalItems > 0, 'red': totalItems <= 0}">{{totalItems}}</span>
         </a>
       </li>
+
+      <li class="nav-item position-relative">
+        <a class="nav-link" routerLink="/favorites" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <i class="fa-solid fa-heart"></i> 
+        </a>
+      </li>
+
       <li class="nav-item">
         <a class="nav-link position-relative" routerLink="/Admin" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <i class="fa-solid fa-lock mx-1"></i> <span>Admin</span>

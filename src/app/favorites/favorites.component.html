@@ -1,0 +1,38 @@
+<div class="container mt-4">
+  <div *ngIf="favoriteProducts$ | async as favoriteProducts">
+    <ng-container *ngIf="favoriteProducts.length > 0; else noFavorites">
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div class="col" *ngFor="let product of favoriteProducts">
+          <div class="card h-100">
+            <img [src]="product?.image" class="card-img-top product-image" [alt]="product?.title">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">{{ product?.title }}</h5>
+              <p class="card-text">Price: &dollar;{{ product?.price }}</p>
+              <div class="mt-auto">
+                <button type="button" class="btn btn-primary btn-sm w-100 mb-2" (click)="addToCart(product)">ADD TO CART</button>
+                <button type="button" class="btn btn-outline-primary btn-sm w-100 mb-2" (click)="handleData(product._id)">VIEW DETAIL</button>
+                <button class="btn btn-link btn-sm p-0 favorite-btn" (click)="toggleFavorite(product)" 
+                        title="{{ isFavorite(product) ? 'Remove from Favorites' : 'Add to Favorites' }}">
+                  <i class="fa-heart" [ngClass]="{'fas text-danger': isFavorite(product), 'far': !isFavorite(product)}"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #noFavorites>
+      <div class="text-center my-4">
+        <div class="p-3 rounded shadow-sm" style="background-color: rgba(255, 255, 255, 0.5); display: inline-block;">
+          <p class="h5 text-dark text-shadow ">No favorite items yet.</p>
+          <div class="d-flex justify-content-center">
+            <img src="https://static.vecteezy.com/system/resources/previews/004/968/488/non_2x/add-to-favorite-list-concept-illustration-flat-design-eps10-simple-modern-graphic-element-for-landing-page-empty-state-ui-infographic-linear-icon-etc-vector.jpg" 
+                 class="img-fluid rounded" 
+                 alt="No favorites" 
+                 style="max-height: 200px;">
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>
