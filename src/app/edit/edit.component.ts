@@ -12,17 +12,55 @@ import { ReactiveFormsModule } from '@angular/forms';
   standalone: true,
   imports: [NgClass, NgFor, NgIf, ReactiveFormsModule],
   templateUrl: './edit.component.html',
-  styles: [`
-    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-    .form-group { margin-bottom: 15px; }
-    label { display: block; margin-bottom: 5px; }
-    input, textarea { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
-    button { padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
-    button:disabled { background-color: #cccccc; cursor: not-allowed; }
-    .error-message { color: red; font-size: 0.9em; margin-top: 5px; }
-    .success-message { color: green; font-size: 1em; margin-bottom: 15px; }
-    .loading-spinner { text-align: center; margin: 20px 0; }
-  `]
+  styles: [
+    `
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+      button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+      }
+      .error-message {
+        color: red;
+        font-size: 0.9em;
+        margin-top: 5px;
+      }
+      .success-message {
+        color: green;
+        font-size: 1em;
+        margin-bottom: 15px;
+      }
+      .loading-spinner {
+        text-align: center;
+        margin: 20px 0;
+      }
+    `,
+  ],
 })
 export class EditComponent implements OnInit {
   product: Product | undefined;
@@ -49,7 +87,7 @@ export class EditComponent implements OnInit {
       vehicleType: [''],
       vehicleYear: [''],
       vehicleMaker: [''],
-      vehicleModel: ['']
+      vehicleModel: [''],
     });
   }
 
@@ -64,10 +102,11 @@ export class EditComponent implements OnInit {
 
   fetchProductDetails(id: string): void {
     this.isLoading = true;
-    this.http.get<Product[]>(`https://auto-gear.vercel.app/spare-parts`)
+    this.http
+      .get<Product[]>('https:auto-gear.vercel.app/spare-parts/all')
       .pipe(
         tap((products) => {
-          this.product = products.find(pro => pro._id === id);
+          this.product = products.find((pro) => pro._id === id);
           if (this.product) {
             this.productForm.patchValue(this.product);
             console.log('Fetched product:', this.product);
@@ -76,7 +115,8 @@ export class EditComponent implements OnInit {
           }
         }),
         catchError((error) => {
-          this.errorMessage = 'Failed to fetch product details. Please try again.';
+          this.errorMessage =
+            'Failed to fetch product details. Please try again.';
           console.error('Error fetching products', error);
           return of(null);
         }),
@@ -93,30 +133,37 @@ export class EditComponent implements OnInit {
       this.isLoading = true;
       const updatedProduct: Product = this.productForm.value;
       const id = this.route.snapshot.paramMap.get('id');
-  
-      // Retrieve the token from sessionStorage
+
       const token = sessionStorage.getItem('authToken');
       const headers = new HttpHeaders({
-        'Authorization': `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       });
-  
-      this.http.patch<Product>(`https://auto-gear.vercel.app/admin/spare-parts/${id}`, updatedProduct, { headers })
+
+      this.http
+        .patch<Product>(
+          'https:auto-gear.vercel.app/admin/spare-parts/${id}',
+          updatedProduct,
+          { headers }
+        )
         .pipe(
           tap((response) => {
-            console.log('Response:', response); // لعرض الاستجابة ومعرفة محتواها
+            console.log('Response:', response);
             if (response) {
               this.successMessage = 'Product updated successfully!';
               setTimeout(() => this.router.navigate(['/products']), 2000);
             } else {
-              this.errorMessage = 'Failed to update product. No response received.';
+              this.errorMessage =
+                'Failed to update product. No response received.';
             }
           }),
           catchError((error) => {
-            console.error('Error in catchError:', error); // عرض الخطأ بشكل واضح
+            console.error('Error in catchError:', error);
             if (error.status === 200 || error.status === 204) {
-              // إذا كان الخادم يعيد حالة 200 أو 204 بدون بيانات
               this.successMessage = 'Product updated successfully!';
-              setTimeout(() => this.router.navigate(['/admin/allproducts']), 2000);
+              setTimeout(
+                () => this.router.navigate(['/admin/allproducts']),
+                2000
+              );
             } else {
               this.errorMessage = 'Failed to update product. Please try again.';
             }
@@ -128,13 +175,9 @@ export class EditComponent implements OnInit {
         )
         .subscribe();
     } else {
-      this.productForm.markAllAsTouched(); 
-      this.errorMessage = 'Please correct the errors in the form before submitting.';
+      this.productForm.markAllAsTouched();
+      this.errorMessage =
+        'Please correct the errors in the form before submitting.';
     }
   }
-  
-
-
-
-
 }
