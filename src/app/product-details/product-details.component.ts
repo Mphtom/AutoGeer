@@ -31,11 +31,14 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   fetchProductDetails(id: string): void {
-    this.http.get<Product[]>(`https://auto-gear.vercel.app/spare-parts`)
+    this.http.get<Product[]>(`https://auto-gear.vercel.app/spare-parts/all`)
       .subscribe({
         next: (data) => {
           this.products = data;
           this.product = this.products.find((pro) => pro._id === id);
+          console.log(this.product)
+          console.log(id)
+
           if (!this.product) {
             console.error('Product not found');
           } else {

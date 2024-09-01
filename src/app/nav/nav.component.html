@@ -6,7 +6,7 @@
     </a>
     <a class="nav-link text-bg-light rounded-2 px-2 py-1 d-flex align-content-center justify-content-center "
       routerLink="/products" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-      <i class="fa-brands fa-product-hunt h3"></i> <span class="h5">roducts</span>
+      <i class="fa-brands fa-product-hunt h3"></i> <span class="h5">Products</span>
     </a>
 
     <ul class="navbar-nav ml-auto">
@@ -26,7 +26,19 @@
           </a>
         </li>
       </ng-template>
-
+   
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          YOUR DETAILS
+        </a>
+        <ul class="dropdown-menu " aria-labelledby="navbarDropdownMenuLink">
+          <li><a class="dropdown-item" routerLink="/favorites">
+            <i class="fa-solid fa-heart"></i>
+          </a></li>
+          <li><a class="dropdown-item" href="#">Another action</a></li>
+          
+        </ul>
+      </li>
 
       <li class="nav-item position-relative">
         <a class="nav-link  " routerLink="/card" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
@@ -35,12 +47,7 @@
         </a>
       </li>
 
-      <li class="nav-item position-relative">
-        <a class="nav-link" routerLink="/favorites" routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }">
-          <i class="fa-solid fa-heart"></i>
-        </a>
-      </li>
+
       <li class="nav-item position-relative">
         <a class="nav-link" routerLink="/admin" routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }">

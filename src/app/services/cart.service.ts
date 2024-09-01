@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CartService {
-  private apiUrl = 'https://auto-gear.vercel.app/spare-parts'; // URL الخاص بـ API
+  private apiUrl = 'https://auto-gear.vercel.app/spare-parts';
   private cartItems: Product[] = [];
   private totalItemsSubject = new BehaviorSubject<number>(0);
 

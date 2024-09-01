@@ -31,7 +31,7 @@ export class CardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authService.setRedirectUrl('/cart');
+    this.authService.setRedirectUrl('/card');
     this.getCartItems();
   }
 
