@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from '../services/cart.service';
 import { Product } from './product.model';
+import { FavoritesService } from '../services/favorites.service';
 
 @Component({
   selector: 'app-main-page',
@@ -22,14 +23,15 @@ export class MainPageComponent implements OnInit {
     { title: 'Spark Plugs', image: 'https://cdn-icons-png.flaticon.com/128/10690/10690314.png' }
   ];
 
-  constructor(private http: HttpClient, private router: Router, private cartService: CartService) {}
+  constructor(private http: HttpClient, private router: Router, private cartService: CartService,    private favoritesService: FavoritesService
+  ) {}
 
   ngOnInit(): void {
     this.fetchProducts();
   }
 
   fetchProducts(): void {
-    this.http.get<Product[]>('https://auto-gear.vercel.app/spare-parts')
+    this.http.get<Product[]>('https://auto-gear.vercel.app/spare-parts/all')
       .subscribe({
         next: (data) => {
           this.products = data;
@@ -53,6 +55,23 @@ export class MainPageComponent implements OnInit {
 
   addToCart(product: Product): void {
     this.cartService.addToCart({ ...product, quantity: 1 });
+  }
+
+  toggleFavorite(product: Product): void {
+    if (product._id) {
+      if (this.favoritesService.isFavorite(product._id)) {
+        this.favoritesService.removeFavorite(product._id);
+        console.log('Removed from favorites:', product._id);
+      } else {
+        this.favoritesService.addFavorite(product._id);
+        console.log('Added to favorites:', product._id);
+      }
+    }
+  }
+
+  isFavorite(product: Product): boolean {
+    const favorites = this.favoritesService.getFavorites();
+    return favorites.includes(product._id);
   }
 
   onCategoryChange(category: string): void {
