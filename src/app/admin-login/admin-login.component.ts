@@ -25,9 +25,8 @@ export class AdminLoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router // Added Router for navigation after login
+    private router: Router 
   ) {
-    // Define the form controls here
     this.form = this.formBuilder.group({
       userEmail: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -35,8 +34,6 @@ export class AdminLoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // No need to reinitialize the form here if it's already in the constructor
-    // If you need additional logic, you can add it here
   }
 
   get userEmail() {
@@ -50,7 +47,7 @@ export class AdminLoginComponent implements OnInit {
   handleSubmitForm() {
     if (this.form.valid) {
       const credentials = {
-        email: this.userEmail?.value, // الآن يستخدم email بدلاً من username
+        email: this.userEmail?.value, 
         password: this.password?.value,
       };
 
@@ -58,7 +55,7 @@ export class AdminLoginComponent implements OnInit {
         tap(response => {
           if (response && response.token) {
             this.authService.saveToken(response.token);
-            this.router.navigate(['/admin']); // Redirect to dashboard or another route
+            this.router.navigate(['/admin']);
           }
         }),
         catchError(error => {

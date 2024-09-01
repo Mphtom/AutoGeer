@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
-import { Router, RouterModule, RouterLink } from '@angular/router'; // Import RouterModule
+import { Router, RouterModule, RouterLink } from '@angular/router'; 
 
 
 import { AuthService } from '../auth.service';
@@ -8,9 +8,9 @@ import { AuthService } from '../auth.service';
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [NgClass, NgFor, NgIf, NgStyle, RouterModule, RouterLink], // Add RouterModule here
+  imports: [NgClass, NgFor, NgIf, NgStyle, RouterModule, RouterLink], 
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css'] // Correct styleUrls
+  styleUrls: ['./admin.component.css'] 
 })
 export class AdminComponent{
 

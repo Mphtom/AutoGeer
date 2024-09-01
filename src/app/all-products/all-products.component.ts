@@ -12,8 +12,8 @@ import { CartService } from '../services/cart.service';
   styleUrls: ['./all-products.component.css']
 })
 export class AllProductsComponent implements OnInit {
-  products: any[] = []; // Define products as an array of any
-  isLoading: boolean = false; // Track loading state
+  products: any[] = []; 
+  isLoading: boolean = false;
 
   constructor(private http: HttpClient, private router: Router, private cartService: CartService) {}
 
@@ -62,7 +62,6 @@ export class AllProductsComponent implements OnInit {
       .subscribe({
         next: (response) => {
           console.log('Response:', response);
-          // تحديث قائمة المنتجات بعد الحذف
           this.products = this.products.filter(product => product._id !== productId);
           sessionStorage.setItem('fetchedProducts', JSON.stringify(this.products));
           this.isLoading = false;

@@ -1,10 +1,8 @@
-/* Custom Styles */
 .product {
     margin: 0 auto;
     padding-top: 10px;   
     overflow: auto;
     background-color: #f4f4f4;
-    /* width: 80% */
    
   }
 
@@ -33,19 +31,17 @@
 
 .table-rounded {
   border-radius: 10px;
-  overflow: hidden; /* Ensures rounding is visible */
+  overflow: hidden;
   border-collapse: separate;
   border-spacing: 0;
 }
 
 
-    /* Remove borders between rows */
     .table-rounded tbody tr,
     .table-rounded tbody td {
       border: none !important;
     }
 
-    /* Keep borders on the outer edges */
     .table-rounded {
       border: 1px solid rgba(13, 202, 240, 0.23);
     }
