@@ -27,6 +27,7 @@
 }
 
 .dropdown-menu {
+  z-index:5;
   border-radius: 0.5rem;
   background-color: #333;
   color: #fff;
@@ -39,8 +40,8 @@
 
 .numberOfItems {
   position: absolute;
-  top: -10px;
-  right: -15px;
+  top: -5px;
+  right: 0px;
   background-color: #ffcc00;
   color: #000;
   font-size: 12px;
@@ -52,5 +53,4 @@
 .light {
   transform: scale(1.2);
   font-weight: bold;
-  color: #00ff00;
 }

@@ -14,7 +14,7 @@ import { AdminComponent } from './admin/admin.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { AllProductsComponent } from './all-products/all-products.component';
 import { EditComponent } from './edit/edit.component';
-
+import { OrdersComponent } from './orders/orders.component';
 export const routes: Routes = [
     {
         path: '',
@@ -65,6 +65,11 @@ export const routes: Routes = [
         path: 'favorites',
         component: FavoritesComponent
     },
+    {
+        path: 'orders',
+        component: OrdersComponent
+    },
+
     {
         path: '**',
         component: NotfondcomponentComponent

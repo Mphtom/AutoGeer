@@ -103,7 +103,7 @@ export class EditComponent implements OnInit {
   fetchProductDetails(id: string): void {
     this.isLoading = true;
     this.http
-      .get<Product[]>('https:auto-gear.vercel.app/spare-parts/all')
+      .get<Product[]>(`https://auto-gear.vercel.app/spare-parts/all`)
       .pipe(
         tap((products) => {
           this.product = products.find((pro) => pro._id === id);
@@ -134,6 +134,7 @@ export class EditComponent implements OnInit {
       const updatedProduct: Product = this.productForm.value;
       const id = this.route.snapshot.paramMap.get('id');
 
+      // Retrieve the token from sessionStorage
       const token = sessionStorage.getItem('authToken');
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`,
@@ -141,13 +142,13 @@ export class EditComponent implements OnInit {
 
       this.http
         .patch<Product>(
-          'https:auto-gear.vercel.app/admin/spare-parts/${id}',
+          `https://auto-gear.vercel.app/admin/spare-parts/${id}`,
           updatedProduct,
           { headers }
         )
         .pipe(
           tap((response) => {
-            console.log('Response:', response);
+            console.log('Response:', response); // لعرض الاستجابة ومعرفة محتواها
             if (response) {
               this.successMessage = 'Product updated successfully!';
               setTimeout(() => this.router.navigate(['/products']), 2000);
@@ -157,8 +158,9 @@ export class EditComponent implements OnInit {
             }
           }),
           catchError((error) => {
-            console.error('Error in catchError:', error);
+            console.error('Error in catchError:', error); // عرض الخطأ بشكل واضح
             if (error.status === 200 || error.status === 204) {
+              // إذا كان الخادم يعيد حالة 200 أو 204 بدون بيانات
               this.successMessage = 'Product updated successfully!';
               setTimeout(
                 () => this.router.navigate(['/admin/allproducts']),
