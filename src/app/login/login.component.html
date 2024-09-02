@@ -4,8 +4,9 @@
     <div class="mb-3">
       <label for="email" class="form-label">Email</label>
       <input type="email" class="form-control" id="email" formControlName="email"
-        placeholder="Enter your email" [class.is-invalid]="emailControl?.touched && emailControl?.invalid" />
-      <div *ngIf="emailControl?.touched && emailControl?.invalid" class="invalid-feedback">
+        placeholder="Enter your email" [class.is-invalid]="emailControl?.touched && emailControl?.invalid"
+        aria-describedby="emailError" />
+      <div *ngIf="emailControl?.touched && emailControl?.invalid" id="emailError" class="invalid-feedback">
         <small *ngIf="emailControl?.errors?.['required']">Email is required.</small>
         <small *ngIf="emailControl?.errors?.['email']">Invalid email format.</small>
       </div>
@@ -14,13 +15,15 @@
     <div class="mb-3">
       <label for="password" class="form-label">Password</label>
       <input type="password" class="form-control" id="password" formControlName="password"
-        placeholder="Enter your password" [class.is-invalid]="password?.touched && password?.invalid" />
-      <div *ngIf="password?.touched && password?.invalid" class="invalid-feedback">
+        placeholder="Enter your password" [class.is-invalid]="password?.touched && password?.invalid"
+        aria-describedby="passwordError" />
+      <div *ngIf="password?.touched && password?.invalid" id="passwordError" class="invalid-feedback">
         <small *ngIf="password?.errors?.['required']">Password is required.</small>
       </div>
     </div> 
 
     <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid || isLoading">
+      <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
       {{ isLoading ? 'Logging in...' : 'Login' }}
     </button>
   </form>

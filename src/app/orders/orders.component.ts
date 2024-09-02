@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient,HttpHeaders} from '@angular/common/http';
 import { inject } from '@angular/core';
-import { Product } from '../main-page/product.model';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { order } from './Order';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-orders',
   standalone: true,
-  imports: [],
+  imports: [NgFor,NgIf],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.css'
 })
