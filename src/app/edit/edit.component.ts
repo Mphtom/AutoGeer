@@ -148,7 +148,7 @@ export class EditComponent implements OnInit {
         )
         .pipe(
           tap((response) => {
-            console.log('Response:', response); // لعرض الاستجابة ومعرفة محتواها
+            console.log('Response:', response); 
             if (response) {
               this.successMessage = 'Product updated successfully!';
               setTimeout(() => this.router.navigate(['/products']), 2000);
@@ -158,9 +158,9 @@ export class EditComponent implements OnInit {
             }
           }),
           catchError((error) => {
-            console.error('Error in catchError:', error); // عرض الخطأ بشكل واضح
+            console.error('Error in catchError:', error); 
             if (error.status === 200 || error.status === 204) {
-              // إذا كان الخادم يعيد حالة 200 أو 204 بدون بيانات
+              
               this.successMessage = 'Product updated successfully!';
               setTimeout(
                 () => this.router.navigate(['/admin/allproducts']),
